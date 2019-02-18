@@ -1,0 +1,9 @@
+.geoserver-rest-ui {
+    &.container {
+        & > .body {
+            & > .background {
+                left: 400px;
+            }
+        }
+    }
+}
