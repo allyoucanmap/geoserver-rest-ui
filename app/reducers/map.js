@@ -14,7 +14,9 @@ let _refresh = 0;
 const options = {
     wmsVersion: '1.1.1',
     format: 'image/png',
-    antialias: 'antialias:full'
+    antialias: 'antialias:full',
+    renderer: 'mapboxgl',
+    projection: 'EPSG:3857'
 };
 
 const STORAGE_NAME = 'gru-map';

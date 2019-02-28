@@ -8,6 +8,21 @@ import { get } from 'lodash';
 const Component = ({
     form = [
         {
+            id: 'projection',
+            label: 'Projection',
+            show: ({ renderer }) => renderer === 'openlayers',
+            values: [
+                {
+                    label: 'EPSG:4326',
+                    value: 'EPSG:4326'
+                },
+                {
+                    label: 'EPSG:3857',
+                    value: 'EPSG:3857'
+                }
+            ]
+        },
+        {
             id: 'wmsVersion',
             label: 'WMS Version',
             values: [
@@ -68,6 +83,20 @@ const Component = ({
                     value: 'antialias:none'
                 }
             ]
+        },
+        {
+            id: 'renderer',
+            label: 'Map Renderer',
+            values: [
+                {
+                    label: 'Mapbox GL',
+                    value: 'mapboxgl'
+                },
+                {
+                    label: 'OpenLayers',
+                    value: 'openlayers'
+                }
+            ]
         }
     ],
     options = {},
@@ -80,30 +109,33 @@ const Component = ({
     return visible ? (
         <div className="footer-list">
             {show && <div className="list-container">
-                {form.map((option) => {
-                    return (
-                        <div
-                            key={option.id}
-                            className="item">
-                            <div>
-                                {option.label}
+                {form.filter(({ show = () => true}) => show(options))
+                    .map((option) => {
+                        return (
+                            <div
+                                key={option.id}
+                                className="item">
+                                <div>
+                                    {option.label}
+                                </div>
+                                <div>
+                                    {option.values
+                                        .map(({ value, label }) => {
+                                        return (
+                                            <div key={value}>
+                                                <button
+                                                    className={`${options[option.id] === value ? 'selected' : ''}`}
+                                                    onClick={() => onChange(option.id, value)}>
+                                                    {label}
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                            <div>
-                                {option.values.map(({ value, label }) => {
-                                    return (
-                                        <div key={value}>
-                                            <button
-                                                className={`${options[option.id] === value ? 'selected' : ''}`}
-                                                onClick={() => onChange(option.id, value)}>
-                                                {label}
-                                            </button>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })
+                }
             </div>}
             <button
                 className={`${show ? 'selected' : ''}`}

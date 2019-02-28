@@ -4,6 +4,7 @@
 @import 'container';
 
 @import '~mapbox-gl/dist/mapbox-gl.css';
+@import '~ol/ol.css';
 @import '~codemirror/lib/codemirror.css';
 @import '~codemirror/theme/cobalt.css';
 @import '~codemirror/addon/hint/show-hint.css';
@@ -30,6 +31,24 @@ ul.CodeMirror-hints {
         }
     }
 }
+
+.ol-zoom {
+    top: .5em;
+    right: .5em;
+    left: unset;
+}
+
+.ol-control {
+    button {
+        color: $color;
+        background-color: $bg;
+        &:focus, &:hover {
+            color: $color;
+            background-color: lighten($bg, 5%);
+        }
+    }
+}
+
 .mapboxgl-ctrl-group {
     border-radius: 0; 
     &.mapboxgl-ctrl {
