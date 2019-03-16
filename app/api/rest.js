@@ -210,13 +210,13 @@ const postStyleCode = (href, name, format) => {
 };
 
 const parseOptions = {
-    layer: ({ layer }, { featureType } = {}) => featureType
+    layer: ({ layer }, { featureType, coverage } = {}) => featureType || coverage
         ? {
             style: get(layer, 'defaultStyle.name'),
-            id: `${get(featureType, 'namespace.name') ? `${get(featureType, 'namespace.name')}:` : ''}${layer.name}`,
+            id: `${get(featureType || coverage, 'namespace.name') ? `${get(featureType || coverage, 'namespace.name')}:` : ''}${layer.name}`,
             dataType: layer.type,
             resource: get(layer, 'resource.href'),
-            ...featureType
+            ...(featureType || coverage)
         }
         : {
             style: get(layer, 'defaultStyle.name'),
